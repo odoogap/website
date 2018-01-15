@@ -14,7 +14,7 @@
     "application": False,
     "installable": True,
     "depends": [
-        "website",
+        "website", "website_sale"
     ],
     "data": [
         "security/ir.model.access.csv",
