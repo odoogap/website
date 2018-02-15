@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<odoo>
+    <!-- Website - website -->
+    <record model="ir.ui.view" id="view_website_form_inherit_multi_website">
+        <field name="name">website.form.multiwebsite</field>
+        <field name="model">website</field>
+        <field name="inherit_id" ref="website.view_website_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='domain']" position="after">
+                <field name="multi_theme_id"/>
+                <field name="multi_theme_view_ids" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

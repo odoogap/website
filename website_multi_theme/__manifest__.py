@@ -13,7 +13,7 @@
     "application": False,
     "installable": True,
     "depends": [
-        "website",
+        "website", "website_sale"
     ],
     "data": [
         "security/ir.model.access.csv",
@@ -22,6 +22,7 @@
         "data/themes_private.xml",
         "templates/assets.xml",
         "templates/patterns.xml",
+        "views/website_views.xml"
     ],
     "demo": [
         "demo/pages.xml",
