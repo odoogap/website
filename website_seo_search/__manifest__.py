@@ -3,27 +3,27 @@
     'name': "website_seo_search",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        Sets unique values to title and meta descrition website tags""",
 
     'description': """
-        Long description of module's purpose
+        For SEO search, the title tags and meta description tags must be unique,
+        so that the website can have a great placement in search engines.
+        Otherwise the website, is in risc off being banned by the search, and 
+        with that, lower visualization.
+
+        For this problem, we created this module that gives the unique, values for
+        for the referred tags above, so the website can have a good placement in 
+        search engines.
     """,
 
-    'author': "My Company",
-    'website': "http://www.yourcompany.com",
+    'author': "ODOOGAP",
+    'website': "https://www.odoogap.com/",
 
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/12.0/odoo/addons/base/data/ir_module_category_data.xml
-    # for the full list
-    'category': 'Uncategorized',
-    'version': '0.1',
+    'category': 'Website',
+    'version': '1.0',
 
-    # any module necessary for this one to work correctly
     'depends': ['base', 'website'],
-
-    # always loaded
     'data': [
-        'views/templates.xml',
+        'views/website_seo_search.xml',
     ]
 }
