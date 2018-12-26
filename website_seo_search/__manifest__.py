@@ -22,7 +22,7 @@
     'category': 'Website',
     'version': '1.0',
 
-    'depends': ['base', 'website'],
+    'depends': ['base', 'website', 'website_blog'],
     'data': [
         'views/website_seo_search.xml',
     ]
