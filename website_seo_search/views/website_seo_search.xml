@@ -3,53 +3,25 @@
         <template id="website_seo_search_title_description" name="Fix title and meta description" inherit_id="website.layout">
             <xpath expr="//t[@t-set='head_website']" position="before">
                 <!-- Fix duplicated title for multi pages -->
-                <t t-if="pager">
-                    <t t-if="'tag' in pager['page']['url']">
-                        <t t-set="sub_index" t-value="pager['page']['url'].find('tag/')"></t>
-                        <t t-set="url_tags" t-value="pager['page']['url'][sub_index+4:len(pager['page']['url'])]"></t>
-                        <t t-set="url_tags_vals" t-value="url_tags.split(',')"></t>
-                        <t t-set="result" t-value="'-'"></t>
-                        <t t-foreach="url_tags_vals" t-as="url_tag_val">
-                            <t t-set="data" t-value="''.join([i for i in url_tag_val if not i.isdigit()])"></t>
-                            <t t-set="result" t-value="result+data"></t>
-                        </t>
-                        <t t-set="str_tags" t-value="result.replace('-', ' ')"></t>
-                    </t>
-                </t>
-                <t t-if="pager and main_object and 'website_meta_title' in main_object">
-                    <t t-if ="isinstance(main_object.website_meta_title, str)">
-                        <t t-set="title" t-value="main_object.website_meta_title.split('|')"/>
-                        <t t-if="len(title) > 1">
-                            <t t-set="title" t-value="'%s Page %s |%s' % (title[0], pager['page']['num'], title[1])"/>
-                        </t>
-                        <t t-else="">
-                            <t t-set="title" t-value="'%s Page %s' % (title[0], pager['page']['num'])"/>
-                        </t>
-                        <t t-if="str_tags">
-                            <t t-set="title" t-value="title + str_tags"></t>
-                        </t>
-                    </t>
+                <t t-set="title_val" t-value="website.get_meta_tags(active_tag_ids, pager, main_object,'t')"></t>
+                <t t-if="title_val">
+                    <t t-set="title" t-value="title_val"></t>
                 </t>
             </xpath>
             <xpath expr="//meta[@name='description']" position="before">
                 <!-- Fix duplicated meta description for multi pages -->
-                <t t-if ="isinstance(main_object.website_meta_description, str)">
-                    <t t-if="pager and main_object and main_object.website_meta_description">
-                        <t t-set="meta_description" t-value="'%s | Page %s' % (main_object.website_meta_description, pager['page']['num'])"/>
-                        <t t-if="str_tags">
-                            <t t-set="meta_description" t-value="meta_description + str_tags"></t>
-                        </t>
-                    </t>
+                <t t-set="meta_description_val" t-value="website.get_meta_tags(active_tag_ids, pager, main_object,'d')"></t>
+                <t t-if="meta_description_val">
+                    <t t-set="meta_description" t-value="title_val"></t>
                 </t>
             </xpath>
         </template>
-
-        <template id="blog_post_short" inherit_id="website_blog.blog_post_short" priority="100">
-            <xpath expr="//h3" position="after">
+        <!--<template id="blog_post_short" inherit_id="website_blog.blog_post_short" priority="100">
+            <xpath expr="//h3[@t-field='']" position="after">
                 <t t-if="str_tags">
                     <h4><t t-esc="str_tags"></t></h4>
                 </t>
             </xpath>
-        </template>
+        </template>-->
     </data>
 </odoo>
