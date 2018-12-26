@@ -3,25 +3,18 @@
         <template id="website_seo_search_title_description" name="Fix title and meta description" inherit_id="website.layout">
             <xpath expr="//t[@t-set='head_website']" position="before">
                 <!-- Fix duplicated title for multi pages -->
-                <t t-set="title_val" t-value="website.get_meta_tags(active_tag_ids, pager, main_object,'t')"></t>
+                <t t-set="title_val" t-value="website.get_meta_tags(active_tag_ids, pager, main_object,'title')"></t>
                 <t t-if="title_val">
                     <t t-set="title" t-value="title_val"></t>
                 </t>
             </xpath>
             <xpath expr="//meta[@name='description']" position="before">
                 <!-- Fix duplicated meta description for multi pages -->
-                <t t-set="meta_description_val" t-value="website.get_meta_tags(active_tag_ids, pager, main_object,'d')"></t>
+                <t t-set="meta_description_val" t-value="website.get_meta_tags(active_tag_ids, pager, main_object,'description')"></t>
                 <t t-if="meta_description_val">
                     <t t-set="meta_description" t-value="title_val"></t>
                 </t>
             </xpath>
         </template>
-        <!--<template id="blog_post_short" inherit_id="website_blog.blog_post_short" priority="100">
-            <xpath expr="//h3[@t-field='']" position="after">
-                <t t-if="str_tags">
-                    <h4><t t-esc="str_tags"></t></h4>
-                </t>
-            </xpath>
-        </template>-->
     </data>
 </odoo>

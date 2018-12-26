@@ -7,7 +7,7 @@ from odoo import models, fields
 class Website(models.Model):
     _inherit = 'website'
 
-    def get_meta_tags(self, active_tags=False, pager=False, main_object=False, meta_type='t'):
+    def get_meta_tags(self, active_tags=False, pager=False, main_object=False, meta_type='title'):
         tag_names = ""
         if active_tags:
             tags = self.env['blog.tag'].browse(active_tags)
@@ -24,7 +24,7 @@ class Website(models.Model):
                         title = '%s Page %s' % (title[0], pager['page']['num'])
                     return tag_names + title
 
-        if meta_type == 'd':
+        if meta_type == 'description':
             if isinstance(main_object.website_meta_description, str):
                 if pager and main_object and main_object.website_meta_description:
                     meta_description = '%s | Page %s' % (main_object.website_meta_description, pager['page']['num'])
