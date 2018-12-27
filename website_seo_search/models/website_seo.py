@@ -36,6 +36,9 @@ class Website(models.Model):
         if active_tags:
             tags = self.env['blog.tag'].browse(active_tags)
             for tag in tags:
-                tag_title += tag.name + ','
-            tag_title = tag_title[:-1]
+                tag_title += tag.name + ', '
+            tag_title = self.last_occurence_rep(tag_title[:-2], ',', ' & ')
         return tag_title
+
+    def last_occurence_rep(self, string, old, new):
+        return (string[::-1].replace(old[::-1], new[::-1], 1))[::-1]

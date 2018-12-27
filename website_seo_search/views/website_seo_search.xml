@@ -4,6 +4,13 @@
             <xpath expr="//t[@t-set='head_website']" position="before">
                 <t t-set="meta_tags" t-value="website.get_meta_tags(active_tag_ids, pager, main_object)"/>
                 <t t-set="title" t-value="meta_tags['title']"/>
+                <style>
+                    .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+                        color: white!important;
+                        margin: 1px;
+                        background-color: #2d5656!important;
+                    }
+                </style>
             </xpath>
 
             <xpath expr="//meta[@name='description']" position="before">
@@ -14,6 +21,30 @@
         <template id="website_seo_search_header_tags" inherit_id="website_blog.blog_post_short">
             <xpath expr="//h3[@t-field='blog.subtitle']" position="after">
                 <h4 class="text-muted"><t t-esc="website.active_tags_header(active_tag_ids)"/></h4>
+            </xpath>
+        </template>
+
+        <template id="website_seo_search_short_tag_fix" inherit_id="website_blog.blog_post_short">
+            <xpath expr="//t[@t-foreach='blog_post.tag_ids']" position="replace">
+                <t t-foreach="blog_post.tag_ids" t-as="one_tag">
+                    <a class="mr8" t-attf-href="#{blog_url(tag=slug(one_tag), date_begin=False, date_end=False)}" t-esc="one_tag.name"/>
+                </t>
+            </xpath>
+        </template>
+
+        <template id="website_seo_search_complete_tag_fix" inherit_id="website_blog.blog_post_complete">
+            <xpath expr="//t[@t-foreach='blog_post.tag_ids']" position="replace">
+                <t t-foreach="blog_post.tag_ids" t-as="one_tag">
+                    <a class="badge badge-primary mr8" t-attf-href="#{blog_url(tag=slug(one_tag))}" t-esc="one_tag.name"/>
+                </t>
+            </xpath>
+        </template>
+
+        <template id="website_seo_search_latest_tag_fix" inherit_id="website_blog.blog_post_complete">
+            <xpath expr="//t[@t-foreach='blog_post.tag_ids']" position="replace">
+                <t t-foreach="blog_post.tag_ids" t-as="one_tag">
+                    <a class="badge badge-primary mr8" t-attf-href="#{blog_url('', ['blog', 'post'], blog=post.blog_id, tag=slug(one_tag))}" t-esc="one_tag.name"/>
+                </t>
             </xpath>
         </template>
     </data>
