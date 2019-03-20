@@ -20,7 +20,9 @@
 
         <template id="website_seo_search_header_tags" inherit_id="website_blog.blog_post_short">
             <xpath expr="//h3[@t-field='blog.subtitle']" position="after">
-                <h4 class="text-muted"><t t-esc="website.active_tags_header(active_tag_ids)"/></h4>
+                <t t-if="website.active_tags_header(active_tag_ids)">
+                    <h4 class="text-muted"><t t-esc="website.active_tags_header(active_tag_ids)"/></h4>
+                </t>
             </xpath>
         </template>
 

@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models
+from odoo.http import request
+from odoo import http
 
 
 class Website(models.Model):
@@ -9,11 +11,21 @@ class Website(models.Model):
     def get_meta_tags(self, active_tags=False, pager=False, main_object=False):
         tag_names = ""
         meta_tags = {'title': '', 'meta_description': ''}
+        active_url = http.request.httprequest.url
 
         if active_tags:
             tags = self.env['blog.tag'].browse(active_tags)
-            for tag in tags:
+
+        if 'tag' in active_url:
+            url_tags = active_url.split('tag/')[1].split(',')
+            if not url_tags[0].isdigit():
+                tags = url_tags
+
+        for tag in tags:
+            if not isinstance(tag, str):
                 tag_names += tag.name + ' '
+            else:
+                tag_names += tag + ' '
 
         if main_object and 'website_meta_title' in main_object:
             meta_tags['title'] = main_object.website_meta_title
