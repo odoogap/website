@@ -13,11 +13,14 @@ class Website(models.Model):
         tags = []
         meta_tags = {'title': '', 'meta_description': ''}
         active_url = http.request.httprequest.url
-
+        title = ""
+        print('passei aqui')
+        print(active_tags)
+        print(active_url)
         if active_tags:
             tags = self.env['blog.tag'].browse(active_tags)
 
-        if 'tag' in active_url:
+        if '/tag/' in active_url:
             url_tags = active_url.split('tag/')[1].split(',')
             if not url_tags[0].isdigit():
                 tags = url_tags
@@ -28,19 +31,28 @@ class Website(models.Model):
                     tag_names += tag.name + ' '
                 else:
                     tag_names += tag + ' '
-
+        print(tag_names)
         if main_object and 'website_meta_title' in main_object:
             meta_tags['title'] = main_object.website_meta_title
-
+            print(meta_tags)
+            print(pager)
             if pager and isinstance(main_object.website_meta_title, str):
                 title = main_object.website_meta_title.split('|')
+                print(title)
                 if len(title) > 1:
                     title = '%s %s Page %s |%s' % (title[0], tag_names, pager['page']['num'], title[
                         1]) if main_object._name != 'blog.post' else '%s %s |%s' % (title[0], tag_names, title[1])
+                    print(title)
                 else:
                     title = '%s %s Page %s' % (title[0], tag_names, pager['page'][
                         'num']) if main_object._name != 'blog.post' else '%s %s' % (title[0], tag_names)
-                meta_tags['title'] = title
+
+            elif pager and not isinstance(main_object.website_meta_title, str):
+                title = 'OdoogapBlog %s Page %s | www.odoogap.com' % (tag_names, pager['page'][
+                        'num']) if main_object._name != 'blog.post' else 'OdoogapBlog %s' % (tag_names)
+
+            meta_tags['title'] = title
+
 
         if main_object and main_object.website_meta_description:
             meta_tags['meta_description'] = main_object.website_meta_description
