@@ -33,9 +33,8 @@ class Website(models.Model):
                     tag_names += tag + ' '
         print(tag_names)
         if main_object and 'website_meta_title' in main_object:
+            title = main_object.website_meta_title
             meta_tags['title'] = main_object.website_meta_title
-            print(meta_tags)
-            print(pager)
             if pager and isinstance(main_object.website_meta_title, str):
                 title = main_object.website_meta_title.split('|')
                 print(title)
